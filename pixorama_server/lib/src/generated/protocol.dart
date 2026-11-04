@@ -13,8 +13,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/protocol.dart' as _isp;
 import 'package:serverpod/serverpod.dart' as _is;
-import 'greetings/greeting.dart' as _izw8z7ou;
-export 'greetings/greeting.dart';
 
 class Protocol extends _is.DatabaseSerializationManager
     implements _is.DatabaseProtocolDeserializationProvider {
@@ -28,12 +26,9 @@ class Protocol extends _is.DatabaseSerializationManager
   _is.ProtocolDeserialization get deserializationMetadata =>
       _is.ProtocolDeserialization.cached(
         this,
-        types: const [
-          _is.getType<_izw8z7ou.Greeting>,
-          _is.getType<_izw8z7ou.Greeting?>,
-        ],
+        types: const [],
         modules: const [_isp.Protocol.new],
-        classNames: const ['Greeting'],
+        classNames: const [],
       );
 
   static List<_isp.TableDefinition> get targetTableDefinitions => [
@@ -64,12 +59,6 @@ class Protocol extends _is.DatabaseSerializationManager
       }
     }
 
-    if (t == _izw8z7ou.Greeting) {
-      return _izw8z7ou.Greeting.fromJson(data) as T;
-    }
-    if (t == _is.getType<_izw8z7ou.Greeting?>()) {
-      return (data != null ? _izw8z7ou.Greeting.fromJson(data) : null) as T;
-    }
     final modules = deserializationMetadata.modulesForDeserialization(
       t,
       className: rawDataClassName,
@@ -85,7 +74,6 @@ class Protocol extends _is.DatabaseSerializationManager
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
-      _izw8z7ou.Greeting => 'Greeting',
       _ => null,
     };
   }
@@ -99,10 +87,6 @@ class Protocol extends _is.DatabaseSerializationManager
       return (data['__className__'] as String).replaceFirst('pixorama.', '');
     }
 
-    switch (data) {
-      case _izw8z7ou.Greeting():
-        return 'Greeting';
-    }
     className = _isp.Protocol().getClassNameForObject(data);
     if (className != null) {
       return className.contains('.') ? className : 'serverpod.$className';
@@ -115,9 +99,6 @@ class Protocol extends _is.DatabaseSerializationManager
     var dataClassName = data['className'];
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
-    }
-    if (dataClassName == 'Greeting') {
-      return deserialize<_izw8z7ou.Greeting>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       return _isp.Protocol().deserializeByClassName({
