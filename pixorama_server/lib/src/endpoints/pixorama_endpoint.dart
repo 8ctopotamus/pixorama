@@ -1,7 +1,5 @@
-import 'package:pixorama_server/src/generated/protocol.dart';
-
 import 'dart:typed_data';
-
+import 'package:pixorama_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 
 class PixoramaEndpoint extends Endpoint {

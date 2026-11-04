@@ -13,6 +13,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/protocol.dart' as _isp;
 import 'package:serverpod/serverpod.dart' as _is;
+import 'image_update.dart' as _i2tnu696;
+export 'image_update.dart';
 
 class Protocol extends _is.DatabaseSerializationManager
     implements _is.DatabaseProtocolDeserializationProvider {
@@ -26,9 +28,12 @@ class Protocol extends _is.DatabaseSerializationManager
   _is.ProtocolDeserialization get deserializationMetadata =>
       _is.ProtocolDeserialization.cached(
         this,
-        types: const [],
+        types: const [
+          _is.getType<_i2tnu696.ImageUpdate>,
+          _is.getType<_i2tnu696.ImageUpdate?>,
+        ],
         modules: const [_isp.Protocol.new],
-        classNames: const [],
+        classNames: const ['ImageUpdate'],
       );
 
   static List<_isp.TableDefinition> get targetTableDefinitions => [
@@ -59,6 +64,12 @@ class Protocol extends _is.DatabaseSerializationManager
       }
     }
 
+    if (t == _i2tnu696.ImageUpdate) {
+      return _i2tnu696.ImageUpdate.fromJson(data) as T;
+    }
+    if (t == _is.getType<_i2tnu696.ImageUpdate?>()) {
+      return (data != null ? _i2tnu696.ImageUpdate.fromJson(data) : null) as T;
+    }
     final modules = deserializationMetadata.modulesForDeserialization(
       t,
       className: rawDataClassName,
@@ -74,6 +85,7 @@ class Protocol extends _is.DatabaseSerializationManager
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
+      _i2tnu696.ImageUpdate => 'ImageUpdate',
       _ => null,
     };
   }
@@ -87,6 +99,10 @@ class Protocol extends _is.DatabaseSerializationManager
       return (data['__className__'] as String).replaceFirst('pixorama.', '');
     }
 
+    switch (data) {
+      case _i2tnu696.ImageUpdate():
+        return 'ImageUpdate';
+    }
     className = _isp.Protocol().getClassNameForObject(data);
     if (className != null) {
       return className.contains('.') ? className : 'serverpod.$className';
@@ -99,6 +115,9 @@ class Protocol extends _is.DatabaseSerializationManager
     var dataClassName = data['className'];
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
+    }
+    if (dataClassName == 'ImageUpdate') {
+      return deserialize<_i2tnu696.ImageUpdate>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       return _isp.Protocol().deserializeByClassName({
