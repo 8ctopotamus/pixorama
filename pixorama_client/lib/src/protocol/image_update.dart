@@ -16,38 +16,38 @@ abstract class ImageUpdate
     implements _isc.SerializableModel, _isc.ProtocolSerialization {
   ImageUpdate._({
     required this.pixelIndex,
-    required this.colorIntex,
+    required this.colorIndex,
   });
 
   factory ImageUpdate({
     required int pixelIndex,
-    required int colorIntex,
+    required int colorIndex,
   }) = _ImageUpdateImpl;
 
   factory ImageUpdate.fromJson(Map<String, dynamic> jsonSerialization) {
     return ImageUpdate(
       pixelIndex: jsonSerialization['pixelIndex'] as int,
-      colorIntex: jsonSerialization['colorIntex'] as int,
+      colorIndex: jsonSerialization['colorIndex'] as int,
     );
   }
 
   int pixelIndex;
 
-  int colorIntex;
+  int colorIndex;
 
   /// Returns a shallow copy of this [ImageUpdate]
   /// with some or all fields replaced by the given arguments.
   @_isc.useResult
   ImageUpdate copyWith({
     int? pixelIndex,
-    int? colorIntex,
+    int? colorIndex,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       '__className__': 'ImageUpdate',
       'pixelIndex': pixelIndex,
-      'colorIntex': colorIntex,
+      'colorIndex': colorIndex,
     };
   }
 
@@ -56,7 +56,7 @@ abstract class ImageUpdate
     return {
       '__className__': 'ImageUpdate',
       'pixelIndex': pixelIndex,
-      'colorIntex': colorIntex,
+      'colorIndex': colorIndex,
     };
   }
 
@@ -69,10 +69,10 @@ abstract class ImageUpdate
 class _ImageUpdateImpl extends ImageUpdate {
   _ImageUpdateImpl({
     required int pixelIndex,
-    required int colorIntex,
+    required int colorIndex,
   }) : super._(
          pixelIndex: pixelIndex,
-         colorIntex: colorIntex,
+         colorIndex: colorIndex,
        );
 
   /// Returns a shallow copy of this [ImageUpdate]
@@ -81,11 +81,11 @@ class _ImageUpdateImpl extends ImageUpdate {
   @override
   ImageUpdate copyWith({
     int? pixelIndex,
-    int? colorIntex,
+    int? colorIndex,
   }) {
     return ImageUpdate(
       pixelIndex: pixelIndex ?? this.pixelIndex,
-      colorIntex: colorIntex ?? this.colorIntex,
+      colorIndex: colorIndex ?? this.colorIndex,
     );
   }
 }

@@ -35,6 +35,8 @@ sessionLogs:
   consoleEnabled: true
   consoleLogFormat: text # Defaults to "json", options are "text" or "json"
 
+# runMigrations: true
+
 #futureCall:
 #  enabled: true # Defaults to true, set to false to disable scheduling and running future calls
 #  executionEnabled: true # Defaults to true

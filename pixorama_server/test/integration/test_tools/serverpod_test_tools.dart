@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _ida;
 import 'dart:io' as _idi;
 import 'package:serverpod/serverpod.dart' as _is;
 import 'package:serverpod_test/serverpod_test.dart' as _ist;
@@ -113,7 +114,9 @@ void withServerpod(
   )(testClosure);
 }
 
-class TestEndpoints {}
+class TestEndpoints {
+  late final _PixoramaEndpoint pixorama;
+}
 
 class _InternalTestEndpoints extends TestEndpoints
     implements _ist.InternalTestEndpoints {
@@ -121,5 +124,85 @@ class _InternalTestEndpoints extends TestEndpoints
   void initialize(
     _is.SerializationManager serializationManager,
     _is.EndpointDispatch endpoints,
-  ) {}
+  ) {
+    pixorama = _PixoramaEndpoint(
+      endpoints,
+      serializationManager,
+    );
+  }
+}
+
+class _PixoramaEndpoint {
+  _PixoramaEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _is.EndpointDispatch _endpointDispatch;
+
+  final _is.SerializationManager _serializationManager;
+
+  _ida.Future<void> setPixel(
+    _ist.TestSessionBuilder sessionBuilder, {
+    required int colorIndex,
+    required int pixelIndex,
+  }) async {
+    return _ist.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+            endpoint: 'pixorama',
+            method: 'setPixel',
+          );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'pixorama',
+          methodName: 'setPixel',
+          parameters: _ist.testObjectToJson({
+            'colorIndex': colorIndex,
+            'pixelIndex': pixelIndex,
+          }),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue =
+            await (_localCallContext.method.call(
+                  _localUniqueSession,
+                  _localCallContext.arguments,
+                )
+                as _ida.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _ida.Stream<dynamic> imageUpdates(_ist.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager = _ist.TestStreamManager<dynamic>();
+    _ist.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _ist.InternalTestSessionBuilder).internalBuild(
+              endpoint: 'pixorama',
+              method: 'imageUpdates',
+            );
+        var _localCallContext = await _endpointDispatch
+            .getMethodStreamCallContext(
+              createSessionCallback: (_) => _localUniqueSession,
+              endpointPath: 'pixorama',
+              methodName: 'imageUpdates',
+              arguments: {},
+              requestedInputStreams: [],
+              serializationManager: _serializationManager,
+            );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
 }

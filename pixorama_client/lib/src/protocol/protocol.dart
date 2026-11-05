@@ -12,7 +12,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _isc;
+import 'image_data.dart' as _ihvv0247;
 import 'image_update.dart' as _i2tnu696;
+export 'image_data.dart';
 export 'image_update.dart';
 export 'client.dart';
 
@@ -29,11 +31,17 @@ class Protocol extends _isc.SerializationManager
       _isc.ProtocolDeserialization.cached(
         this,
         types: const [
+          _isc.getType<_ihvv0247.ImageData>,
           _isc.getType<_i2tnu696.ImageUpdate>,
+          _isc.getType<_ihvv0247.ImageData?>,
           _isc.getType<_i2tnu696.ImageUpdate?>,
+          _isc.getType<dynamic>,
         ],
         modules: const [],
-        classNames: const ['ImageUpdate'],
+        classNames: const [
+          'ImageData',
+          'ImageUpdate',
+        ],
       );
 
   static String? getClassNameFromObjectJson(dynamic data) =>
@@ -60,17 +68,27 @@ class Protocol extends _isc.SerializationManager
       }
     }
 
+    if (t == _ihvv0247.ImageData) {
+      return _ihvv0247.ImageData.fromJson(data) as T;
+    }
     if (t == _i2tnu696.ImageUpdate) {
       return _i2tnu696.ImageUpdate.fromJson(data) as T;
     }
+    if (t == _isc.getType<_ihvv0247.ImageData?>()) {
+      return (data != null ? _ihvv0247.ImageData.fromJson(data) : null) as T;
+    }
     if (t == _isc.getType<_i2tnu696.ImageUpdate?>()) {
       return (data != null ? _i2tnu696.ImageUpdate.fromJson(data) : null) as T;
+    }
+    if (t == dynamic) {
+      return deserializeDynamicFieldValue(data) as T;
     }
     return super.deserialize<T>(data, t);
   }
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
+      _ihvv0247.ImageData => 'ImageData',
       _i2tnu696.ImageUpdate => 'ImageUpdate',
       _ => null,
     };
@@ -86,6 +104,8 @@ class Protocol extends _isc.SerializationManager
     }
 
     switch (data) {
+      case _ihvv0247.ImageData():
+        return 'ImageData';
       case _i2tnu696.ImageUpdate():
         return 'ImageUpdate';
     }
@@ -97,6 +117,9 @@ class Protocol extends _isc.SerializationManager
     var dataClassName = data['className'];
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
+    }
+    if (dataClassName == 'ImageData') {
+      return deserialize<_ihvv0247.ImageData>(data['data']);
     }
     if (dataClassName == 'ImageUpdate') {
       return deserialize<_i2tnu696.ImageUpdate>(data['data']);

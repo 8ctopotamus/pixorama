@@ -13,7 +13,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/protocol.dart' as _isp;
 import 'package:serverpod/serverpod.dart' as _is;
+import 'image_data.dart' as _ihvv0247;
 import 'image_update.dart' as _i2tnu696;
+export 'image_data.dart';
 export 'image_update.dart';
 
 class Protocol extends _is.DatabaseSerializationManager
@@ -29,11 +31,17 @@ class Protocol extends _is.DatabaseSerializationManager
       _is.ProtocolDeserialization.cached(
         this,
         types: const [
+          _is.getType<_ihvv0247.ImageData>,
           _is.getType<_i2tnu696.ImageUpdate>,
+          _is.getType<_ihvv0247.ImageData?>,
           _is.getType<_i2tnu696.ImageUpdate?>,
+          _is.getType<dynamic>,
         ],
         modules: const [_isp.Protocol.new],
-        classNames: const ['ImageUpdate'],
+        classNames: const [
+          'ImageData',
+          'ImageUpdate',
+        ],
       );
 
   static List<_isp.TableDefinition> get targetTableDefinitions => [
@@ -64,11 +72,20 @@ class Protocol extends _is.DatabaseSerializationManager
       }
     }
 
+    if (t == _ihvv0247.ImageData) {
+      return _ihvv0247.ImageData.fromJson(data) as T;
+    }
     if (t == _i2tnu696.ImageUpdate) {
       return _i2tnu696.ImageUpdate.fromJson(data) as T;
     }
+    if (t == _is.getType<_ihvv0247.ImageData?>()) {
+      return (data != null ? _ihvv0247.ImageData.fromJson(data) : null) as T;
+    }
     if (t == _is.getType<_i2tnu696.ImageUpdate?>()) {
       return (data != null ? _i2tnu696.ImageUpdate.fromJson(data) : null) as T;
+    }
+    if (t == dynamic) {
+      return deserializeDynamicFieldValue(data) as T;
     }
     final modules = deserializationMetadata.modulesForDeserialization(
       t,
@@ -85,6 +102,7 @@ class Protocol extends _is.DatabaseSerializationManager
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
+      _ihvv0247.ImageData => 'ImageData',
       _i2tnu696.ImageUpdate => 'ImageUpdate',
       _ => null,
     };
@@ -100,6 +118,8 @@ class Protocol extends _is.DatabaseSerializationManager
     }
 
     switch (data) {
+      case _ihvv0247.ImageData():
+        return 'ImageData';
       case _i2tnu696.ImageUpdate():
         return 'ImageUpdate';
     }
@@ -115,6 +135,9 @@ class Protocol extends _is.DatabaseSerializationManager
     var dataClassName = data['className'];
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
+    }
+    if (dataClassName == 'ImageData') {
+      return deserialize<_ihvv0247.ImageData>(data['data']);
     }
     if (dataClassName == 'ImageUpdate') {
       return deserialize<_i2tnu696.ImageUpdate>(data['data']);

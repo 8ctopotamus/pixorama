@@ -10,9 +10,38 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _ida;
 import 'package:http/http.dart' as _i85jenna;
 import 'package:serverpod_client/serverpod_client.dart' as _isc;
 import 'protocol.dart' as _il2as5qe;
+
+/// {@category Endpoint}
+class EndpointPixorama extends _isc.EndpointRef {
+  EndpointPixorama(_isc.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'pixorama';
+
+  _ida.Future<void> setPixel({
+    required int colorIndex,
+    required int pixelIndex,
+  }) => caller.callServerEndpoint<void>(
+    'pixorama',
+    'setPixel',
+    {
+      'colorIndex': colorIndex,
+      'pixelIndex': pixelIndex,
+    },
+  );
+
+  _ida.Stream<dynamic> imageUpdates() =>
+      caller.callStreamingServerEndpoint<_ida.Stream<dynamic>, dynamic>(
+        'pixorama',
+        'imageUpdates',
+        {},
+        {},
+      );
+}
 
 class Client extends _isc.ServerpodClientShared {
   Client(
@@ -40,10 +69,14 @@ class Client extends _isc.ServerpodClientShared {
          disconnectStreamsOnLostInternetConnection:
              disconnectStreamsOnLostInternetConnection,
          httpClientOverride: httpClientOverride,
-       ) {}
+       ) {
+    pixorama = EndpointPixorama(this);
+  }
+
+  late final EndpointPixorama pixorama;
 
   @override
-  Map<String, _isc.EndpointRef> get endpointRefLookup => {};
+  Map<String, _isc.EndpointRef> get endpointRefLookup => {'pixorama': pixorama};
 
   @override
   Map<String, _isc.ModuleEndpointCaller> get moduleLookup => {};

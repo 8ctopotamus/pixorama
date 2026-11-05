@@ -22,9 +22,9 @@ class PixoramaEndpoint extends Endpoint {
   Future<void> setPixel(
     Session session, {
     required int colorIndex,
-    required int pixelIndex
+    required int pixelIndex,
   }) async {
-    // check that input params are valid. If not, 
+    // check that input params are valid. If not,
     // throw a `FormatException`, which will be logged  and thrown
     // as `ServerpodClientException` in the app.
     if (colorIndex < 0 || colorIndex >= _numColorsInPalette) {
@@ -42,9 +42,23 @@ class PixoramaEndpoint extends Endpoint {
     session.messages.postMessage(
       _channelPixelAdded,
       ImageUpdate(
-        pixelIndex,
-        colorIndex,
-      )
+        pixelIndex: pixelIndex,
+        colorIndex: colorIndex,
+      ),
     );
+  }
+
+  Stream imageUpdates(Session session) async* {
+    var updateStream = session.messages.createStream(_channelPixelAdded);
+
+    yield ImageData(
+      pixels: _pixelData.buffer.asByteData(),
+      width: _imageWidth,
+      height: _imageHeight,
+    );
+
+    await for (var imageUpdate in updateStream) {
+      yield imageUpdate;
+    }
   }
 }

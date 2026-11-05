@@ -1,4 +1,4 @@
 class: ImageUpdate
 fields:
   pixelIndex: int
-  colorIntex: int
+  colorIndex: int

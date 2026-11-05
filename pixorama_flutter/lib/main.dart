@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'client.dart';
-import 'screens/greetings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +42,6 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
-      body: const GreetingsScreen(),
     );
   }
 }
