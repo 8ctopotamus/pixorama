@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pixorama/screens/pixorama.dart';
 
 import 'client.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeClient();
-  runApp(const MyApp());
+  runApp(const PixoramaApp());
 }
 
 /// Builds a theme for the given [brightness].
@@ -18,30 +19,17 @@ ThemeData _buildTheme(Brightness brightness) {
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PixoramaApp extends StatelessWidget {
+  const PixoramaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Serverpod Demo',
+      title: 'Pixorama',
       theme: _buildTheme(Brightness.light),
       darkTheme: _buildTheme(Brightness.dark),
       themeMode: ThemeMode.system,
-      home: const MyHomePage(title: 'Serverpod Example'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      home: const Pixorama(),
     );
   }
 }
