@@ -39,7 +39,7 @@ class PixoramaEndpoint extends Endpoint {
 
     // notify all connected clients that we set a pixel
     // by posting a message to the _channelPixelAdded channel.
-    session.messages.postMessage(
+    await session.messages.postMessage(
       _channelPixelAdded,
       ImageUpdate(
         pixelIndex: pixelIndex,
