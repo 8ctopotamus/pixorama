@@ -29,6 +29,7 @@ class _PixoramaState extends State<Pixorama> {
 
         // listen for updates from the stream
         await for (final update in imageUpdates) {
+          print(update);
           // This is a complete image update, containing all pixels in the image.
           // Create a new PixelImageController with the pixel data.
           if (update is ImageData) {
